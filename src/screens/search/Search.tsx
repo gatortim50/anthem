@@ -1,10 +1,6 @@
 import React, {
   useState,
   useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-  useContext,
 } from 'react';
 import { ActivityIndicator, Image, View, TextInput } from 'react-native';
 import GetResults from '../../api/API';
@@ -12,10 +8,14 @@ import GetResults from '../../api/API';
 import styles from './styles';
 import { Button } from '../../components';
 import Images from '../../constants/images';
+const URI = 'https://www.anthem.com/';
+import ModalWebView from '../common/ModalWebView';
 
 const SearchScreen = ({ navigation }) => {
   const [value, onChangeText] = useState('');
   const [animating, setAnimating] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [appointment, setAppointment] = useState(false);
 
   const submitForm = () => {
     setAnimating(true);
@@ -28,6 +28,14 @@ const SearchScreen = ({ navigation }) => {
       navigation.navigate('Results', { results: response.data });
     });
   };
+
+  const submitWebView = () => {
+    console.log('webview');
+    setAppointment(!appointment);
+    setModalVisible(!isModalVisible);
+    console.log('set isModalVisible:', isModalVisible);
+    console.log('set appointment:', appointment);
+  }
 
   return (
     <View style={styles.container}>
@@ -43,6 +51,12 @@ const SearchScreen = ({ navigation }) => {
 
       <View style={styles.buttonContainer}>
         <Button onPress={submitForm} title={'Search'} />
+      </View>
+      {appointment && (
+        <ModalWebView title={'Anthem'} URI_LINK={URI} />
+      )}
+      <View style={styles.buttonContainer}>
+        <Button onPress={submitWebView} title={'View Anthem'} />
       </View>
       <ActivityIndicator
         animating = {animating}

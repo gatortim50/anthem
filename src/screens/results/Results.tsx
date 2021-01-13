@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import sortBy from 'lodash/sortBy';
 import { Button } from '../../components';
+import { Cache } from 'react-native-cache';
 import styles from './styles';
 
 const ResultsScreen = ({ route, navigation }) => {
   const [displayList, setDisplayList] = useState(route.params.results.list);
+  const cache = new Cache({
+    namespace: 'anthem',
+    policy: {
+        maxEntries: 50000
+    },
+    backend: AsyncStorage
+  });
   let icon = true;
 
   const submitForm = () => {
@@ -72,7 +81,7 @@ const ResultsScreen = ({ route, navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
-
+      
       <View style={styles.resultsButtonContainer}>
         <Button onPress={submitForm} title={'Back'} />
       </View>
