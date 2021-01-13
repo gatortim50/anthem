@@ -30,7 +30,7 @@ const ResultsScreen = ({ route, navigation }) => {
   };
 
   const sortThumbsDown = () => {
-    console.log('thumbs up');
+    console.log('thumbs down');
     const sortedByMostThumbsDown = sortBy(displayList, 'thumbs_down').reverse();
     setDisplayList(sortedByMostThumbsDown);
   };

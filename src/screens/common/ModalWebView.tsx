@@ -19,7 +19,6 @@ function ModalWebView(props) {
   function onClose() {
     console.log('close modal');
     setModalVisible(!isModalVisible);
-    console.log('set isModalVisible:', isModalVisible);
   }
 
   return (

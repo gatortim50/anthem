@@ -21,7 +21,6 @@ const SearchScreen = ({ navigation }) => {
     setAnimating(true);
     console.log('searching: ', value);
     GetResults(value).then((response) => {
-      console.log(response);
       if (response.data) {
         setAnimating(false);
       }
