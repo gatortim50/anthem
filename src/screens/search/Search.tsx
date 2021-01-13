@@ -24,6 +24,7 @@ const SearchScreen = ({ navigation }) => {
       if (response.data) {
         setAnimating(false);
       }
+      onChangeText('');
       navigation.navigate('Results', { results: response.data });
     });
   };
