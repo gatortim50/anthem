@@ -24,10 +24,15 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   image: {
-    //resizeMode: 'cover',
     width: 180,
     height: '50%',
   },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80
+  }
 });
 
 export default styles;

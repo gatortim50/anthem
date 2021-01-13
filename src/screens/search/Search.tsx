@@ -6,7 +6,7 @@ import React, {
   useRef,
   useContext,
 } from 'react';
-import { Image, View, TextInput } from 'react-native';
+import { ActivityIndicator, Image, View, TextInput } from 'react-native';
 import GetResults from '../../api/API';
 
 import styles from './styles';
@@ -15,11 +15,16 @@ import Images from '../../constants/images';
 
 const SearchScreen = ({ navigation }) => {
   const [value, onChangeText] = useState('');
+  const [animating, setAnimating] = useState(false);
 
   const submitForm = () => {
+    setAnimating(true);
     console.log('searching: ', value);
     GetResults(value).then((response) => {
       console.log(response);
+      if (response.data) {
+        setAnimating(false);
+      }
       navigation.navigate('Results', { results: response.data });
     });
   };
@@ -39,6 +44,11 @@ const SearchScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Button onPress={submitForm} title={'Search'} />
       </View>
+      <ActivityIndicator
+        animating = {animating}
+        color = '#bc2b78'
+        size = "large"
+        style = {styles.activityIndicator}/>
     </View>
   );
 };
